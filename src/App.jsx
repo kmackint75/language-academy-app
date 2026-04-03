@@ -196,11 +196,11 @@ const courseData = {
             duration: '30 min',
             objective: 'Learn foundational words like father, spirit, king, and kingdom.',
             explanation:
-              'Vocabulary gives you handles to hold onto. Without it, the language remains mist. These first words are not random. They are chosen because they connect directly to biblical meaning, theology, and the world of Jesus\' speech.',
+              "Vocabulary gives you handles to hold onto. Without it, the language remains mist. These first words are not random. They are chosen because they connect directly to biblical meaning, theology, and the world of Jesus' speech.",
             contentSections: [
-              { heading: 'Starter Vocabulary', body: 'אַבָּא abba, Father. רוּחָא ruha, spirit. מַלְכָּא malka, king. מַלְכוּתָא malkuta, kingdom. שְׁמַיָּא shemaya, heaven. אַרְעָא ar\'a, earth.' },
+              { heading: 'Starter Vocabulary', body: "אַבָּא abba, Father. רוּחָא ruha, spirit. מַלְכָּא malka, king. מַלְכוּתָא malkuta, kingdom. שְׁמַיָּא shemaya, heaven. אַרְעָא ar'a, earth." },
               { heading: 'How to Memorize', body: 'Say the word, say the meaning, and use it again in the same sitting. Repeat the list in short bursts rather than one long exhausted marathon.' },
-              { heading: 'Spiritual Connection', body: 'These words are not merely academic items. They belong to the texture of Scripture, prayer, proclamation, and the world surrounding Jesus\' ministry.' }
+              { heading: 'Spiritual Connection', body: "These words are not merely academic items. They belong to the texture of Scripture, prayer, proclamation, and the world surrounding Jesus' ministry." }
             ],
             drills: [
               'Read each word aloud five times',
@@ -217,10 +217,10 @@ const courseData = {
             duration: '35 min',
             objective: 'Read short Aramaic words and phrases aloud.',
             explanation:
-              'This lesson brings the module together. Read what you know. Slow reading is honest reading. Begin with single words, then move toward short phrases associated with biblical memory and the spoken world of Jesus.',
+              "This lesson brings the module together. Read what you know. Slow reading is honest reading. Begin with single words, then move toward short phrases associated with biblical memory and the spoken world of Jesus.",
             contentSections: [
               { heading: 'Reading Lab', body: 'Practice אַבָּא, רוּחָא, מַלְכָּא, מַלְכוּתָא, and טַלִיתָא קוּמִי. Work slowly. Sound each form clearly before trying to increase flow.' },
-              { heading: 'Meaning and Reverence', body: 'When reading a phrase like talitha qumi, do not treat it like a museum item. Hear the tenderness and authority connected to Jesus\' world. Language study deepens when it remains joined to Scripture rather than floating in abstraction.' },
+              { heading: 'Meaning and Reverence', body: "When reading a phrase like talitha qumi, do not treat it like a museum item. Hear the tenderness and authority connected to Jesus' world. Language study deepens when it remains joined to Scripture rather than floating in abstraction." },
               { heading: 'Confidence Through Repetition', body: 'Read the same list several times. Repetition is not failure. Repetition is formation.' }
             ],
             drills: [
@@ -323,14 +323,40 @@ export default function App() {
     setCompleted((prev) => ({ ...prev, [lessonId]: !prev[lessonId] }))
   }
 
+  const scrollToLessonPanel = () => {
+    setTimeout(() => {
+      const panel = document.getElementById('lesson-panel')
+      if (panel) {
+        panel.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      }
+    }, 50)
+  }
+
   const resetCourse = () => {
+    const confirmReset = window.confirm('Reset all progress for this course?')
+    if (!confirmReset) return
+
     const ids = allLessons.map((lesson) => lesson.id)
+
     setCompleted((prev) => {
       const next = { ...prev }
       ids.forEach((id) => delete next[id])
       return next
     })
+
     setSelectedLessonId(allLessons[0].id)
+
+    setQuizAnswers((prev) => {
+      const next = { ...prev }
+      activeModule.quiz.forEach((_, idx) => {
+        delete next[`${activeCourse}-${idx}`]
+      })
+      return next
+    })
+
+    setNotes((prev) => ({ ...prev, [activeCourse]: '' }))
+
+    scrollToLessonPanel()
   }
 
   return (
@@ -383,7 +409,15 @@ export default function App() {
               <div className="section-head">
                 <h2><PlayCircle size={18} /> Module 1 Interactive Study</h2>
                 <div className="head-actions">
-                  <button className="secondary-btn" onClick={() => setSelectedLessonId(nextLesson.id)}>Resume Next</button>
+                  <button
+                    className="secondary-btn"
+                    onClick={() => {
+                      setSelectedLessonId(nextLesson.id)
+                      scrollToLessonPanel()
+                    }}
+                  >
+                    Resume Next
+                  </button>
                   <button className="secondary-btn" onClick={resetCourse}><RotateCcw size={16} /> Reset</button>
                 </div>
               </div>
@@ -413,7 +447,7 @@ export default function App() {
               </div>
             </div>
 
-            <div className="card lesson-panel">
+            <div id="lesson-panel" className="card lesson-panel">
               <div className="section-head">
                 <div>
                   <div className="muted small">Current Lesson</div>
