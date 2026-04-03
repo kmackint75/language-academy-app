@@ -1,0 +1,87 @@
+:root {
+  color-scheme: light;
+  --bg: #f7f4ee;
+  --card: #ffffff;
+  --soft: #f4efe6;
+  --text: #1f1b16;
+  --muted: #6e6358;
+  --line: #e2d9cb;
+  --accent: #3c3428;
+  --accent-soft: #efe7d8;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: linear-gradient(to bottom, #fbfaf7, #f3ede3);
+  color: var(--text);
+}
+button, input, textarea { font: inherit; }
+.page { min-height: 100vh; }
+.container { max-width: 1280px; margin: 0 auto; padding: 24px; }
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  box-shadow: 0 8px 30px rgba(70, 52, 24, 0.06);
+  padding: 20px;
+}
+.hero { display: flex; gap: 16px; align-items: center; margin-bottom: 20px; }
+.hero-icon {
+  width: 56px; height: 56px; border-radius: 18px;
+  display: grid; place-items: center; background: var(--soft);
+}
+h1, h2, h3 { margin: 0; }
+p { line-height: 1.65; }
+.muted { color: var(--muted); }
+.small { font-size: 0.85rem; }
+.top-grid, .main-grid { display: grid; gap: 20px; }
+.top-grid { grid-template-columns: 2fr 1fr; margin-bottom: 20px; }
+.main-grid { grid-template-columns: 2fr 1fr; }
+.section-head {
+  display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 16px;
+}
+.section-head h2 { display: flex; align-items: center; gap: 8px; font-size: 1.1rem; }
+.tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+.tab, .secondary-btn, .primary-btn {
+  border-radius: 14px; border: 1px solid var(--line); cursor: pointer; transition: 0.2s ease;
+}
+.tab { padding: 12px 14px; background: #fff; }
+.tab.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+.progress-row { display: flex; justify-content: space-between; margin: 8px 0; }
+.progress-bar {
+  width: 100%; height: 12px; background: #efe7d8; border-radius: 999px; overflow: hidden; margin-bottom: 14px;
+}
+.progress-fill { height: 100%; background: var(--accent); }
+.stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
+.stat-card { border: 1px solid var(--line); border-radius: 18px; padding: 14px; }
+.stat-value { font-size: 1.8rem; font-weight: 700; margin-top: 8px; }
+.resume-box, .soft-box, .goal-box, .outline-box, .question-box {
+  border: 1px solid var(--line); border-radius: 18px; padding: 16px;
+}
+.resume-box, .soft-box { background: var(--soft); }
+.clean-list, .dot-list { padding-left: 0; margin: 0; list-style: none; }
+.clean-list li { display: flex; gap: 10px; margin-bottom: 10px; color: var(--muted); }
+.lesson-grid, .stack { display: grid; gap: 12px; }
+.lesson-grid { grid-template-columns: 1fr 1fr; margin-top: 16px; }
+.lesson-button {
+  width: 100%; text-align: left; padding: 16px; border-radius: 18px; border: 1px solid var(--line); background: #fff; cursor: pointer;
+}
+.lesson-button.selected { border-color: var(--accent); background: #faf6ef; }
+.lesson-title { font-weight: 600; }
+.lesson-meta { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; font-size: 0.92rem; color: var(--muted); gap: 10px; }
+.pill { padding: 4px 10px; border-radius: 999px; font-size: 0.82rem; }
+.pill-done { background: #ddd3c0; color: #2d261e; }
+.pill-open { background: #f0ece5; color: #5f5548; }
+.head-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.secondary-btn, .primary-btn { padding: 10px 14px; background: #fff; display: inline-flex; align-items: center; gap: 8px; }
+.primary-btn { background: var(--accent); color: #fff; border-color: var(--accent); }
+.secondary-btn:hover, .lesson-button:hover, .tab:hover { transform: translateY(-1px); }
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.script-text { font-size: 1.45rem; font-weight: 700; margin: 8px 0; }
+textarea {
+  width: 100%; min-height: 120px; border-radius: 16px; border: 1px solid var(--line); padding: 12px; resize: vertical; background: #fff;
+}
+@media (max-width: 980px) {
+  .top-grid, .main-grid, .lesson-grid, .two-col { grid-template-columns: 1fr; }
+}
